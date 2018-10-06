@@ -38,16 +38,24 @@ public class Vector3D {
     return new Vector3D(x + otherVector.x, y + otherVector.y, z + otherVector.z);
   }
 
-  public Vector3D subtract(Vector3D otherVector) {
-    return new Vector3D(x - otherVector.x, y - otherVector.y, z - otherVector.z);
+  public Vector3D subtract(Vector3D other) {
+    return new Vector3D(x - other.x, y - other.y, z - other.z);
   }
 
   public Vector3D multiply(double factor) {
     return new Vector3D(x * factor, y * factor, z * factor);
   }
 
+  public double dot(Vector3D other) {
+    return x * other.x + y * other.y + z * other.z;
+  }
+
   public double length() {
     return Math.sqrt(x * x + y * y + z * z);
+  }
+
+  public double lengthSquared() {
+    return x * x + y * y + z * z;
   }
 
   public Vector3D normalize() {
@@ -60,10 +68,6 @@ public class Vector3D {
 
   /**
    * Checks whether this vector is closer to origin than otherVector.
-   *
-   * @param otherVector The vector to compare against.
-   * @param origin The vector to calculate distance from.
-   * @return True if this vector is closer.
    */
   public boolean closerThan(Vector3D otherVector, Vector3D origin) {
     double thisDistance = this.subtract(origin).length();

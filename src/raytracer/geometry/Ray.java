@@ -13,4 +13,12 @@ public class Ray {
   public Vector3D getOrigin() {
     return origin;
   }
+
+  public Vector3D getDirection() {
+    return direction;
+  }
+
+  public Vector3D getPoint(double t) {
+    return origin.add(direction.multiply(t));
+  }
 }

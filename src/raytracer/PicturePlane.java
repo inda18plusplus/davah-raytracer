@@ -17,9 +17,10 @@ class PicturePlane {
     this.cameraPosition = cameraPosition;
     this.planeOrigin = facing;
 
+    angleOfView *= Math.PI / 180;
     Vector3D normal = facing.subtract(cameraPosition);
     double horizontalLength = normal.length() * Math.tan(angleOfView / 2);
-    double verticalLength = horizontalLength * imageWidth / imageHeight;
+    double verticalLength = horizontalLength * imageHeight / imageWidth;
     this.horizontal = getHorizontal(normal).scale(horizontalLength);
     this.vertical = getVertical(normal).scale(verticalLength);
 
@@ -33,7 +34,7 @@ class PicturePlane {
 
   private Vector3D getVertical(Vector3D normal) {
     Vector3D horizontalProjection = new Vector3D(normal.getX(), 0, normal.getZ());
-    double horizontalStretch = normal.getY() / horizontalProjection.length();
+    double horizontalStretch = - normal.getY() / horizontalProjection.length();
     return new Vector3D(normal.getX() * horizontalStretch,
             horizontalProjection.length(),
             normal.getZ() * horizontalStretch);
@@ -41,7 +42,7 @@ class PicturePlane {
 
   public Ray getRay(double x, double y) {
     double horizontalFactor = 2 * x / width - 1;
-    double verticalFactor = 2 * y / height - 1;
+    double verticalFactor = 1 - 2 * y / height;
     Vector3D stretchedHorizontal = horizontal.multiply(horizontalFactor);
     Vector3D stretchedVertical = vertical.multiply(verticalFactor);
     Vector3D planePosition = planeOrigin.add(stretchedHorizontal).add(stretchedVertical);
