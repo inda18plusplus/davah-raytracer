@@ -20,7 +20,7 @@ class Picture {
   void write(String filename) {
     try {
       String path = "img/" + filename;
-      ImageIO.write(image, "bmp", new File(path));
+      ImageIO.write(image, "png", new File(path));
     } catch (Exception e) {
       e.printStackTrace();
     }
