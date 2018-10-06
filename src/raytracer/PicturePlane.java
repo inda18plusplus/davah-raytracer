@@ -5,7 +5,8 @@ import raytracer.geometry.Vector3D;
 
 class PicturePlane {
 
-  private Vector3D origin;
+  private Vector3D cameraPosition;
+  private Vector3D planeOrigin;
   private Vector3D horizontal;
   private Vector3D vertical;
   private double width;
@@ -13,7 +14,8 @@ class PicturePlane {
 
   PicturePlane(Vector3D cameraPosition, Vector3D facing, double angleOfView,
                double imageWidth, double imageHeight) {
-    this.origin = facing;
+    this.cameraPosition = cameraPosition;
+    this.planeOrigin = facing;
 
     Vector3D normal = facing.subtract(cameraPosition);
     double horizontalLength = normal.length() * Math.tan(angleOfView / 2);
@@ -42,7 +44,7 @@ class PicturePlane {
     double verticalFactor = 2 * y / height - 1;
     Vector3D stretchedHorizontal = horizontal.multiply(horizontalFactor);
     Vector3D stretchedVertical = vertical.multiply(verticalFactor);
-    Vector3D planePosition = origin.add(stretchedHorizontal).add(stretchedVertical);
-    return new Ray(origin, planePosition);
+    Vector3D planePosition = planeOrigin.add(stretchedHorizontal).add(stretchedVertical);
+    return new Ray(cameraPosition, planePosition);
   }
 }
