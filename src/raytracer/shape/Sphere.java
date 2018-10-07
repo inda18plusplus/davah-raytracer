@@ -25,17 +25,17 @@ public class Sphere extends Shape {
    */
   public List<Vector3D> getCollisions(Ray ray) {
     Vector3D translatedOrigin = ray.getOrigin().subtract(center);
-    double something = ray.getDirection().dot(translatedOrigin); //TODO: Does this mean anything?
-    double discriminant = radius * radius + something * something - translatedOrigin.lengthSquared();
+    double thing = ray.getDirection().dot(translatedOrigin); //TODO: Does this mean anything?
+    double discriminant = radius * radius + thing * thing - translatedOrigin.lengthSquared();
     List<Vector3D> collisions = new ArrayList<>();
     if (discriminant < 0) {
       return collisions;
     }
-    double t1 = - something - Math.sqrt(discriminant);
+    double t1 = - thing - Math.sqrt(discriminant);
     if (t1 >= 0) {
       collisions.add(ray.getPoint(t1));
     }
-    double t2 = - something + Math.sqrt(discriminant);
+    double t2 = - thing + Math.sqrt(discriminant);
     if (t2 >= 0) {
       collisions.add(ray.getPoint(t2));
     }

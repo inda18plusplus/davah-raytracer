@@ -5,9 +5,9 @@ package raytracer.geometry;
  */
 public class Vector3D {
 
-  private double x;
-  private double y;
-  private double z;
+  private double ex;
+  private double wye;
+  private double zed;
 
   /**
    * Creates a 3D vector.
@@ -17,45 +17,45 @@ public class Vector3D {
    * @param z The z coordinate.
    */
   public Vector3D(double x, double y, double z) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
+    this.ex = x;
+    this.wye = y;
+    this.zed = z;
   }
 
   public double getX() {
-    return x;
+    return ex;
   }
 
   public double getY() {
-    return y;
+    return wye;
   }
 
   public double getZ() {
-    return z;
+    return zed;
   }
 
   public Vector3D add(Vector3D otherVector) {
-    return new Vector3D(x + otherVector.x, y + otherVector.y, z + otherVector.z);
+    return new Vector3D(ex + otherVector.ex, wye + otherVector.wye, zed + otherVector.zed);
   }
 
   public Vector3D subtract(Vector3D other) {
-    return new Vector3D(x - other.x, y - other.y, z - other.z);
+    return new Vector3D(ex - other.ex, wye - other.wye, zed - other.zed);
   }
 
   public Vector3D multiply(double factor) {
-    return new Vector3D(x * factor, y * factor, z * factor);
+    return new Vector3D(ex * factor, wye * factor, zed * factor);
   }
 
   public double dot(Vector3D other) {
-    return x * other.x + y * other.y + z * other.z;
+    return ex * other.ex + wye * other.wye + zed * other.zed;
   }
 
   public double length() {
-    return Math.sqrt(x * x + y * y + z * z);
+    return Math.sqrt(ex * ex + wye * wye + zed * zed);
   }
 
   public double lengthSquared() {
-    return x * x + y * y + z * z;
+    return ex * ex + wye * wye + zed * zed;
   }
 
   public Vector3D normalize() {
