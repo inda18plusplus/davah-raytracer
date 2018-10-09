@@ -74,4 +74,16 @@ public class Vector3D {
     double otherDistance = otherVector.subtract(origin).length();
     return thisDistance < otherDistance;
   }
+
+  /**
+   * Returns a random Vector3D with length <= 1.
+   */
+  public static Vector3D randomInUnitSphere() {
+    Vector3D candidate;
+    do {
+      candidate = new Vector3D(Math.random(), Math.random(), Math.random());
+      candidate = candidate.multiply(2).subtract(new Vector3D(1, 1, 1));
+    } while (candidate.lengthSquared() > 1.0);
+    return candidate;
+  }
 }

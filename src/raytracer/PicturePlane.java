@@ -29,7 +29,7 @@ class PicturePlane {
   }
 
   private Vector3D getHorizontal(Vector3D normal) {
-    return new Vector3D(-normal.getZ(), 0, normal.getX());
+    return new Vector3D(normal.getZ(), 0, -normal.getX());
   }
 
   private Vector3D getVertical(Vector3D normal) {
@@ -40,12 +40,16 @@ class PicturePlane {
             normal.getZ() * horizontalStretch);
   }
 
-  public Ray getRay(double x, double y) {
+  Ray getRay(double x, double y) {
     double horizontalFactor = 2 * x / width - 1;
     double verticalFactor = 1 - 2 * y / height;
     Vector3D stretchedHorizontal = horizontal.multiply(horizontalFactor);
     Vector3D stretchedVertical = vertical.multiply(verticalFactor);
     Vector3D planePosition = planeOrigin.add(stretchedHorizontal).add(stretchedVertical);
-    return new Ray(cameraPosition, planePosition);
+    return new Ray(cameraPosition, planePosition.subtract(cameraPosition));
+  }
+
+  Ray getAaRay(double x, double y) {
+    return getRay(x + Math.random(), y + Math.random());
   }
 }

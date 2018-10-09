@@ -1,21 +1,24 @@
 package raytracer.shape;
 
-import java.awt.Color;
 import java.util.List;
+
 import raytracer.geometry.Ray;
 import raytracer.geometry.Vector3D;
+import raytracer.shape.texture.Texture;
 
 public abstract class Shape {
 
-  private Color color;
+  private Texture texture;
 
-  public Shape(Color color) {
-    this.color = color;
+  Shape(Texture texture) {
+    this.texture = texture;
   }
 
   public abstract List<Vector3D> getCollisions(Ray ray);
 
-  public Color getColor() {
-    return color;
+  public abstract Ray getNormal(Vector3D position);
+
+  public Texture getTexture() {
+    return texture;
   }
 }
