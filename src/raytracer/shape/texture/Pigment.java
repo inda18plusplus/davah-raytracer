@@ -8,14 +8,7 @@ public class Pigment extends Texture {
 
   private Color color;
 
-  public Pigment(double ambientRatio,
-                 double diffuseRatio,
-                 double reflectivity,
-                 double fuzziness,
-                 double specularRatio,
-                 double specularExponent,
-                 Color color) {
-    super(ambientRatio, diffuseRatio, reflectivity, fuzziness, specularRatio, specularExponent);
+  public Pigment(Color color) {
     this.color = color;
   }
 

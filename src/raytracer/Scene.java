@@ -70,16 +70,16 @@ public class Scene {
       return getSkyColor(ray.getDirection());
     }
     double ambientFactor = getAmbientLightLevel(collision.position)
-            * collision.shape.getTexture().getAmbientRatio();
+            * collision.shape.getMaterial().getAmbientRatio();
     Color surfaceColor = collision.shape.getTexture().getColor(collision.position, collision.shape);
     Color result = surfaceColor.scale(ambientFactor);
 
     Ray normal = collision.shape.getNormal(collision.position);
-    Ray reflection = ray.bounce(normal, collision.shape.getTexture().getFuzziness());
+    Ray reflection = ray.bounce(normal, collision.shape.getMaterial().getFuzziness());
 
-    if (depth < MAX_RECURSION_DEPTH && collision.shape.getTexture().getReflectivity() > 0.0) {
+    if (depth < MAX_RECURSION_DEPTH && collision.shape.getMaterial().getReflectivity() > 0.0) {
       Color reflectionColor = trace(reflection.nudgedForward(), depth + 1);
-      result = result.add(reflectionColor.scale(collision.shape.getTexture().getReflectivity()));
+      result = result.add(reflectionColor.scale(collision.shape.getMaterial().getReflectivity()));
     }
 
     for (Light light : lights) {
@@ -95,14 +95,14 @@ public class Scene {
       if (!inShadow) {
         double diffusionFactor = lightIntensity
                 * Math.max(0, normal.getDirection().dot(lightDirection))
-                * collision.shape.getTexture().getDiffuseRatio();
+                * collision.shape.getMaterial().getDiffuseRatio();
         Color diffusion = surfaceColor.multiply(lightColor.scale(diffusionFactor));
         result = result.add(diffusion);
 
         double specularFactor = lightIntensity
                 * Math.pow(Math.max(0, reflection.getDirection().dot(lightDirection)),
-                  collision.shape.getTexture().getSpecularExponent())
-                * collision.shape.getTexture().getSpecularRatio();
+                  collision.shape.getMaterial().getSpecularExponent())
+                * collision.shape.getMaterial().getSpecularRatio();
         Color specularColor = light.getColor().scale(specularFactor);
         result = result.add(specularColor);
       }

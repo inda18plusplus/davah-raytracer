@@ -5,6 +5,7 @@ import java.util.List;
 
 import raytracer.geometry.Ray;
 import raytracer.geometry.Vector3D;
+import raytracer.shape.material.Material;
 import raytracer.shape.texture.Texture;
 
 public class Sphere extends Shape {
@@ -15,8 +16,8 @@ public class Sphere extends Shape {
   /**
    * Creates a sphere by position and radius.
    */
-  public Sphere(Vector3D center, double radius, Texture texture) {
-    super(texture);
+  public Sphere(Material material, Texture texture, Vector3D center, double radius) {
+    super(material, texture);
     this.center = center;
     this.radius = radius;
   }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import raytracer.geometry.Ray;
 import raytracer.geometry.Vector3D;
+import raytracer.shape.material.Material;
 import raytracer.shape.texture.Texture;
 
 public class Plane extends Shape {
@@ -15,8 +16,8 @@ public class Plane extends Shape {
   /**
    * Creates a plane by a point on the plane and a normal.
    */
-  public Plane(Vector3D origin, Vector3D normal, Texture texture) {
-    super(texture);
+  public Plane(Material material, Texture texture, Vector3D origin, Vector3D normal) {
+    super(material, texture);
     this.origin = origin;
     this.normal = normal.normalize();
   }

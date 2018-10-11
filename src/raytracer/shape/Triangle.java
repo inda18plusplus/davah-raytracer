@@ -5,6 +5,7 @@ import java.util.List;
 
 import raytracer.geometry.Ray;
 import raytracer.geometry.Vector3D;
+import raytracer.shape.material.Material;
 import raytracer.shape.texture.Texture;
 
 public class Triangle extends Shape {
@@ -22,8 +23,9 @@ public class Triangle extends Shape {
   /**
    * Creates a triangle by its three vertices.
    */
-  public Triangle(Texture texture, Vector3D vertex1, Vector3D vertex2, Vector3D vertex3) {
-    super(texture);
+  public Triangle(Material material, Texture texture,
+                  Vector3D vertex1, Vector3D vertex2, Vector3D vertex3) {
+    super(material, texture);
     this.vertex1 = vertex1;
     this.vertex2 = vertex2;
     this.vertex3 = vertex3;

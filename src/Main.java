@@ -5,11 +5,39 @@ import raytracer.light.Light;
 import raytracer.shape.Plane;
 import raytracer.shape.Sphere;
 import raytracer.shape.Triangle;
+import raytracer.shape.material.Material;
 import raytracer.shape.texture.NormalToColor;
 import raytracer.shape.texture.Pigment;
 import raytracer.shape.texture.Texture;
 
 public class Main {
+
+  private static Material matteNonReflective = new Material(
+          0.3,
+          0.7,
+          0.0,
+          0.0,
+          0.5,
+          14
+  );
+
+  private static Material matteReflective = new Material(
+          0.1,
+          0.5,
+          0.4,
+          0.3,
+          0.5,
+          6
+  );
+
+  private static Material glossy = new Material(
+          0.1,
+          0.5,
+          0.4,
+          0.0,
+          0.5,
+          14
+  );
 
   /**
    * Creates a scene and renders it.
@@ -22,31 +50,23 @@ public class Main {
     Scene scene = new Scene();
     scene.addLight(new Light(new Vector3D(0, 4, 0), new Color(1, 1, 1), 70));
     scene.addLight(new Light(new Vector3D(-3, 2, 2), new Color(1, 1, 1), 20));
-    Texture texture = new Pigment(
-            0.3,
-            0.7,
-            0.0,
-            0.0,
-            0.0,
-            25,
-            new Color(0.8, 0.3, 0.7)
-    );
-    scene.add(new Triangle(texture,
+    Texture pink = new Pigment(new Color(0.8, 0.3, 0.7));
+    scene.add(new Triangle(matteNonReflective, pink,
             new Vector3D(-2, 0, 2),
             new Vector3D(2, 0, 2),
             new Vector3D(0, 2, 0))
     );
-    scene.add(new Triangle(texture,
+    scene.add(new Triangle(matteNonReflective, pink,
             new Vector3D(-2, 0, -2),
             new Vector3D(-2, 0, 2),
             new Vector3D(0, 2, 0))
     );
-    scene.add(new Triangle(texture,
+    scene.add(new Triangle(matteNonReflective, pink,
             new Vector3D(2, 0, -2),
             new Vector3D(-2, 0, -2),
             new Vector3D(0, 2, 0))
     );
-    scene.add(new Triangle(texture,
+    scene.add(new Triangle(matteNonReflective, pink,
             new Vector3D(2, 0, 2),
             new Vector3D(2, 0, -2),
             new Vector3D(0, 2, 0))
@@ -58,30 +78,22 @@ public class Main {
     Scene scene = new Scene();
     scene.addLight(new Light(new Vector3D(4, 2, -3.4), new Color(1, 1, 1), 60));
     scene.addLight(new Light(new Vector3D(4, 2, 2.9), new Color(1, 1, 1), 20));
-    Texture silverGlossy = new Pigment(
-            0.1,
-            0.5,
-            0.4,
-            0.0,
-            0.5,
-            14,
-            new Color(0.7, 0.7, 0.7)
-    );
-    Texture normalColoring = new NormalToColor(
-            0.1,
-            0.5,
-            0.4,
-            0.3,
-            0.5,
-            6
-    );
-    scene.add(new Sphere(new Vector3D(0, 0, 0), 1.5, silverGlossy));
-    scene.add(new Plane(new Vector3D(5, 0, 0), new Vector3D(-1, 0, 0), normalColoring));
-    scene.add(new Plane(new Vector3D(-5, 0, 0), new Vector3D(1, 0, 0), normalColoring));
-    scene.add(new Plane(new Vector3D(0, 5, 0), new Vector3D(0, -1, 0), normalColoring));
-    scene.add(new Plane(new Vector3D(0, -5, 0), new Vector3D(0, 1, 0), normalColoring));
-    scene.add(new Plane(new Vector3D(0, 0, 5), new Vector3D(0, 0, -1), normalColoring));
-    scene.add(new Plane(new Vector3D(0, 0, -5), new Vector3D(0, 0, 1), normalColoring));
+    Texture silver = new Pigment(new Color(0.7, 0.7, 0.7));
+    Texture normalColoring = new NormalToColor();
+    scene.add(new Sphere(glossy, silver,
+            new Vector3D(0, 0, 0), 1.5));
+    scene.add(new Plane(matteReflective, normalColoring,
+            new Vector3D(5, 0, 0), new Vector3D(-1, 0, 0)));
+    scene.add(new Plane(matteReflective, normalColoring,
+            new Vector3D(-5, 0, 0), new Vector3D(1, 0, 0)));
+    scene.add(new Plane(matteReflective, normalColoring,
+            new Vector3D(0, 5, 0), new Vector3D(0, -1, 0)));
+    scene.add(new Plane(matteReflective, normalColoring,
+            new Vector3D(0, -5, 0), new Vector3D(0, 1, 0)));
+    scene.add(new Plane(matteReflective, normalColoring,
+            new Vector3D(0, 0, 5), new Vector3D(0, 0, -1)));
+    scene.add(new Plane(matteReflective, normalColoring,
+            new Vector3D(0, 0, -5), new Vector3D(0, 0, 1)));
     return scene;
   }
 
