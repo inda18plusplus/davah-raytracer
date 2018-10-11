@@ -87,7 +87,7 @@ public class Scene {
       Vector3D lightVector = lightPosition.subtract(collision.position);
       double distanceToLight = lightVector.length();
       double distanceToLightSquared = lightVector.lengthSquared();
-      double lightIntensity = Math.min(1, light.getIntensity() / distanceToLightSquared);
+      double lightIntensity = light.getIntensity() / (light.getIntensity() + distanceToLightSquared);
       Color lightColor = light.getColor();
       Vector3D lightDirection = lightVector.normalize();
       Ray shadowRay = new Ray(collision.position, lightVector);
