@@ -12,7 +12,7 @@ public class Pigment extends Texture {
     this.color = color;
   }
 
-  public Color getColor(Vector3D vector3D, Shape shape) {
+  public Color getColor(Vector3D position, Shape shape) {
     return color;
   }
 }
