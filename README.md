@@ -3,7 +3,7 @@
 A simple raytracer. Features:
 
 - Adjustable camera position and direction
-- Spheres and planes
+- Spheres, planes, and triangles
 - Point lights
 - Lighting with the Phong reflection model
 - Customizable materials (k<sub>a</sub>, k<sub>d</sub>, k<sub>s</sub> in the Phong model, etc.)
@@ -13,7 +13,6 @@ A simple raytracer. Features:
 ![Spinning room gif](img/room.gif)
 
 Todo:
-- Triangles
 - Directional lights
 - Loading textures
 - Fog so the horizon stops looking so ugly?
