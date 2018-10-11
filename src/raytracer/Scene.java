@@ -113,8 +113,8 @@ public class Scene {
 
   private Color getSkyColor(Vector3D direction) {
     double t = 0.5 * (direction.getY() + 1.0);
-    Color up = new Color(0.9, 0.9, 0.9);
-    Color down = new Color(0.6, 0.6, 0.6);
+    Color up = new Color(0.5, 0.5, 0.9);
+    Color down = new Color(0.8, 0.8, 0.8);
     return down.scale(1.0 - t).add(up.scale(t));
   }
 

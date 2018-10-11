@@ -6,11 +6,30 @@ import raytracer.shape.Plane;
 import raytracer.shape.Sphere;
 import raytracer.shape.Triangle;
 import raytracer.shape.material.Material;
+import raytracer.shape.texture.Checkered;
 import raytracer.shape.texture.NormalToColor;
 import raytracer.shape.texture.Pigment;
 import raytracer.shape.texture.Texture;
 
 public class Main {
+
+  private static Material onlyAmbient = new Material(
+          0.7,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+  );
+
+  private static Material ambientReflective = new Material(
+          0.5,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          1.0
+  );
 
   private static Material matteNonReflective = new Material(
           0.3,
@@ -34,7 +53,7 @@ public class Main {
           0.1,
           0.5,
           0.4,
-          0.0,
+          0.01,
           0.5,
           14
   );
@@ -43,10 +62,27 @@ public class Main {
    * Creates a scene and renders it.
    */
   public static void main(String[] args) {
-    drawOnce(test());
+    drawOnce(checkeredFloor());
   }
 
-  private static Scene test() {
+  private static Scene checkeredFloor() {
+    Scene scene = new Scene();
+    scene.addLight(new Light(new Vector3D(-6, 10, -9), new Color(1, 1, 1), 1000));
+    Texture whiteRedSquares = new Checkered(
+            new Color(1, 1, 1),
+            new Color(1, 0, 0)
+    );
+    scene.add(new Plane(matteNonReflective, whiteRedSquares,
+            new Vector3D(0, 0, 0),
+            new Vector3D(0, 1, 0))
+    );
+    Texture silver = new Pigment(new Color(0.7, 0.7, 0.7));
+    scene.add(new Sphere(glossy, silver,
+            new Vector3D(0, 3, 0), 3));
+    return scene;
+  }
+
+  private static Scene pyramid() {
     Scene scene = new Scene();
     scene.addLight(new Light(new Vector3D(0, 4, 0), new Color(1, 1, 1), 70));
     scene.addLight(new Light(new Vector3D(-3, 2, 2), new Color(1, 1, 1), 20));
@@ -99,7 +135,7 @@ public class Main {
 
   private static void drawOnce(Scene scene) {
     long startTime = System.currentTimeMillis();
-    scene.draw(new Vector3D(-3, 4, -1), new Vector3D(0, 0, 0), 80, 20,
+    scene.draw(new Vector3D(-6, 4, 0), new Vector3D(0, 3, 0), 80, 20,
             600, 600, "test/output.png");
     long elapsedTime = System.currentTimeMillis() - startTime;
     System.out.println("Finished in " + elapsedTime + "ms");
