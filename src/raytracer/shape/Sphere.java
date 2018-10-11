@@ -13,7 +13,7 @@ public class Sphere extends Shape {
   private double radius;
 
   /**
-   * Creates a sphere by position, radius, and color.
+   * Creates a sphere by position and radius.
    */
   public Sphere(Vector3D center, double radius, Texture texture) {
     super(texture);
@@ -22,7 +22,7 @@ public class Sphere extends Shape {
   }
 
   /**
-   * Calculates the intersections of the sphere and a ray. Assumes ray.getDirection().length() == 1.
+   * Calculates the intersections of the sphere and a ray.
    */
   public List<Vector3D> getCollisions(Ray ray) {
     Vector3D translatedOrigin = ray.getOrigin().subtract(center);

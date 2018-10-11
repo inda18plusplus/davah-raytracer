@@ -13,7 +13,7 @@ public class Plane extends Shape {
   private Vector3D normal;
 
   /**
-   * Creates a sphere by position, radius, and color.
+   * Creates a plane by a point on the plane and a normal.
    */
   public Plane(Vector3D origin, Vector3D normal, Texture texture) {
     super(texture);
@@ -26,7 +26,11 @@ public class Plane extends Shape {
    */
   public List<Vector3D> getCollisions(Ray ray) {
     List<Vector3D> collisions = new ArrayList<>();
-    double t = normal.dot(origin.subtract(ray.getOrigin())) / normal.dot(ray.getDirection());
+    double denominator = normal.dot(ray.getDirection());
+    if (Math.abs(denominator) < 0.0001) {
+      return collisions;
+    }
+    double t = normal.dot(origin.subtract(ray.getOrigin())) / denominator;
     if (t >= 0) {
       collisions.add(ray.getPoint(t));
     }

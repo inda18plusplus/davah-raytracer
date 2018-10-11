@@ -113,9 +113,9 @@ public class Scene {
 
   private Color getSkyColor(Vector3D direction) {
     double t = 0.5 * (direction.getY() + 1.0);
-    Color white = new Color(1.0, 1.0, 1.0);
-    Color blue = new Color(0.5, 0.7, 1.0);
-    return white.scale(1.0 - t).add(blue.scale(t));
+    Color up = new Color(0.9, 0.9, 0.9);
+    Color down = new Color(0.6, 0.6, 0.6);
+    return down.scale(1.0 - t).add(up.scale(t));
   }
 
   private double getAmbientLightLevel(Vector3D position) {

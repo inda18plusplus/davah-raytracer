@@ -10,11 +10,7 @@ public class Vector3D {
   private double zed;
 
   /**
-   * Creates a 3D vector.
-   *
-   * @param x The x coordinate.
-   * @param y The y coordinate.
-   * @param z The z coordinate.
+   * Creates a 3D vector given by (x, y, z).
    */
   public Vector3D(double x, double y, double z) {
     this.ex = x;
@@ -50,6 +46,17 @@ public class Vector3D {
     return ex * other.ex + wye * other.wye + zed * other.zed;
   }
 
+  /**
+   * Cross product.
+   */
+  public Vector3D cross(Vector3D other) {
+    return new Vector3D(
+            wye * other.zed - zed * other.wye,
+            zed * other.ex - ex * other.zed,
+            ex * other.wye - wye * other.ex
+    );
+  }
+
   public double length() {
     return Math.sqrt(ex * ex + wye * wye + zed * zed);
   }
@@ -59,7 +66,8 @@ public class Vector3D {
   }
 
   public Vector3D normalize() {
-    return this.multiply(1 / this.length());
+    double factor = (this.length() == 0 ? 0 : 1 / this.length());
+    return this.multiply(factor);
   }
 
   public Vector3D scale(double newLength) {
